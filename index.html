@@ -17,7 +17,6 @@
             min-width:800px;
             height:80vh;
             overflow: auto;
-            background-color: indianred;
         }
 
         #world-svg {
@@ -35,7 +34,7 @@
             border-radius: 20px;
             padding: 10px;
         }
-        #infoBoxTitle{
+        #infoBoxTitle,#infoBoxValue{
             color:white;
             font-size: 30px;
             cursor:default;
@@ -47,6 +46,9 @@
     <div id="infobox">
         <div id="infoBoxTitle">
             TMP
+        </div>
+        <div id="infoBoxValue">
+            0
         </div>
     </div>
     <div class="svg-wrapper" id="mapWrapper">
@@ -321,7 +323,7 @@
                         el.getAttribute('class') ||
                         'Unknown region';
                     console.log(`Hovering over: ${name}`);
-                    colorCountry(name, "#FF0000")
+                    //colorCountry(name, "#FF0000")
 
                     
 
@@ -342,9 +344,9 @@
 
             allCountries.forEach((e, i) => {
                 //colorCountry(e, randomHexColor());
-                colorCountry(e, "rgb(" + i + "," + i + "," + i + ")");
+                //colorCountry(e, "rgb(" + i + "," + i + "," + i + ")");
                 //console.log(e)
-                colorCountry(e,"#407090")
+                //colorCountry(e,"#407090")
             });
             loadData();
         });
@@ -375,6 +377,7 @@
         function updateInfobox(name) {
             console.log(Bokdata[name])
             document.getElementById("infoBoxTitle").innerHTML = name
+            document.getElementById("infoBoxValue").innerHTML = Bokdata[name].count
         }
         
 
