@@ -389,7 +389,7 @@
         let Bokdata = []
 
         async function loadData() {
-            const url = "https://hdkcdjdaexyxbwjwyacq.supabase.co/storage/v1/object/public/BokInfoJson/bokInfo.json"; 
+            const url = "https://hdkcdjdaexyxbwjwyacq.supabase.co/storage/v1/object/public/BokInfoJson/bokInfo.json"+"?"+Date.now(); 
             const res = await fetch(url);
             const data = await res.json();
             Bokdata = data
