@@ -378,7 +378,7 @@
         }
 
         function showDataForCountry(name) {
-            
+
         }
 
         function removeDataforCountry() {
@@ -408,7 +408,11 @@
                 if (Bokdata.hasOwnProperty(country)) {
                     //console.log("Country:", country);
                     //console.log("Count:", Bokdata[country].count);
-                    colorCountry(country, "rgb(" + Bokdata[country].count*multiplier + "," + Bokdata[country].count*multiplier2 + "," + 255 + ")");
+                    let blueColor = 255
+                    if (Bokdata[country].count <= 0) {
+                        blueColor = 190
+                    }
+                    colorCountry(country, "rgb(" + Bokdata[country].count*multiplier2 + "," + Bokdata[country].count*multiplier + "," + blueColor + ")");
                 }
             }
             //document.getElementById("output").textContent = JSON.stringify(data, null, 2);
