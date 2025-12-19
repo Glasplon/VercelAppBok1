@@ -50,6 +50,9 @@
         <div id="infoBoxValue">
             0
         </div>
+        <button id="moreInfoBttn" onclick="">
+            se bøker
+        </button>
     </div>
     <div class="svg-wrapper" id="mapWrapper">
         <object id="world-svg" data="world.svg" type="image/svg+xml"></object>
@@ -64,6 +67,14 @@
         step="10" />
     <label for="zoomSlider">zoom</label>
     <div id="zoomValue">100%</div>
+    <div id="countryBookInfoHolder">
+        <div class="bookBlock">
+            <div class="bookBlockTitle"></div>
+            <div class="bookBlockInfo">
+
+            </div>
+        </div>
+    </div>
 
     <script>
         let svgDoc = false
@@ -73,6 +84,7 @@
         const zoomValue = document.getElementById("zoomValue");
         const worldSvg = document.getElementById("world-svg");
         const obj = document.getElementById('world-svg');
+        const bookInfoHolder = document.getElementById("countryBookInfoHolder")
         let allCountries = 
         [
             "Angola",
@@ -290,6 +302,8 @@
             "Zimbabwe"
         ]
         
+        let currentCountryHover = 
+
         zoomValue.textContent = zoomSlider.value + "%";
 
         function updateZoom() {
@@ -352,7 +366,23 @@
         });
 
         function hideBox() {
+            currentCountryHover = "none"
             Infobox.style.display = "none";
+        }
+
+        function updateInfobox(name) {
+            currentCountryHover = name
+            console.log(Bokdata[name])
+            document.getElementById("infoBoxTitle").innerHTML = name
+            document.getElementById("infoBoxValue").innerHTML = Bokdata[name].count
+        }
+
+        function showDataForCountry(name) {
+            
+        }
+
+        function removeDataforCountry() {
+
         }
 
 
@@ -364,23 +394,25 @@
             const data = await res.json();
             Bokdata = data
             console.log(Bokdata)
+            let mostbooks = 2
+            for (const country in Bokdata) {
+                if (Bokdata.hasOwnProperty(country)) {
+                    if (mostbooks < Bokdata[country].count) {
+                        mostbooks = Bokdata[country].count
+                    }
+                }
+            }
+            let multiplier = 255/mostbooks
+            let multiplier2 = 128/mostbooks
             for (const country in Bokdata) {
                 if (Bokdata.hasOwnProperty(country)) {
                     //console.log("Country:", country);
                     //console.log("Count:", Bokdata[country].count);
-                    colorCountry(country, "rgb(" + Bokdata[country].count*5 + "," + Bokdata[country].count*15 + "," + 255 + ")");
+                    colorCountry(country, "rgb(" + Bokdata[country].count*multiplier + "," + Bokdata[country].count*multiplier2 + "," + 255 + ")");
                 }
             }
             //document.getElementById("output").textContent = JSON.stringify(data, null, 2);
         }
-
-        function updateInfobox(name) {
-            console.log(Bokdata[name])
-            document.getElementById("infoBoxTitle").innerHTML = name
-            document.getElementById("infoBoxValue").innerHTML = Bokdata[name].count
-        }
-        
-
 
         function randomHexColor() {
             return '#' + Math.floor(Math.random() * 0xffffff)
