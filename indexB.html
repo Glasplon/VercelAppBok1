@@ -646,7 +646,14 @@
             const valueEl = document.getElementById("infoBoxValue");
 
             titleEl.innerHTML = CountryLUT[name];
-            valueEl.innerHTML = Bokdata[name].count + " bøker lest";
+            if (Bokdata[name].count == 1) {
+                valueEl.innerHTML = Bokdata[name].count + "bok lest";
+            } else {
+                valueEl.innerHTML = Bokdata[name].count + "bøker lest";
+            }
+            if (valueEl.innerHTML == "1 bøker lest") {
+                valueEl.innerHTML = "1 bok lest"
+            }
 
             fitTextToContainer(titleEl);
         }
