@@ -18,11 +18,12 @@
             width: 100vw;
             justify-items: center;
             padding-top: 1vw;
+            padding-bottom: 10px;
         }
         .svg-wrapper {
-            background: #F7FAFC;
+            background: #f3faff;
             width: 98vw;  /* full viewport width */
-            border: 1.5px solid #b5e8b9;
+            border: 1.5px solid #91b3e3;
             border-radius: 20px;
             overflow-x: auto; /* horizontal scroll */
             overflow-y: auto;     /* optional vertical scroll */
@@ -75,28 +76,48 @@
             overflow-x: auto; /* horizontal scroll */
             -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
             touch-action: pan-x;                /* allow horizontal touch panning */
+            padding: 10px;
+            background-color: #e9ecee;
+        }
+        #countryBookInfoTitle{
+            margin-top: 20px;
+            background-color: #e9ecee;
+            width:fit-content;
+            min-width: 100px;
+            font-size: 28px;
+            padding-right:30px;
+            padding-left:15px;
+            padding-top:7px;
+            border-top-right-radius: 30px;
+            display: none;
         }
 
         .sjangerShow{
+            font-size: 19px;
             border-radius: 20px;
-            padding:5px;
-            padding-left:10px;
-            padding-right:10px;
+            padding:7px;
+            padding-left:21px;
+            padding-right:21px;
             width: fit-content;
             text-align: center;
-            color: white;
+            color: black;
+            border:#f3faff, solid, 2px
         }
         #faglitteratur{
-            background-color: #2F6DAE;
+            border-color: #2F6DAE;
+            background-color: #68b1ff;
         }
         #sakprosa{
-            background-color: #2E8B6D;
+            border-color: #38a180;
+            background-color: #68fbcc;
         }
-        #tegneserier{
-            background-color: #E07A2D;
+        #tegneserie{
+            border-color: #E07A2D;
+            background-color: #ffa763;
         }
         #skjønnlitteratur{
-            background-color: #8A4FB3;
+            border-color: #8A4FB3;
+            background-color: #d191ff;
         }
         .bookCard{
             height:110%;
@@ -113,6 +134,7 @@
             text-align: center;
         }
         .bookInfo{
+            margin-bottom: 8px;
             width:213px;
             padding:5px;
             max-height:95px;
@@ -136,11 +158,17 @@
             font-size: 30px;
             max-width:220px;
             white-space: nowrap;
+            margin-bottom: 2px;
         }
-        .bookImg{
+        .imageHolder{
+            height:350px;
+            margin-bottom: 6px;
+        }
+        .bookImg,.bookImgNoImg{
             height:350px;
         }
         .bookImgNoImg{
+            width:223px;
             min-height:350px;
             min-width:223px;
             max-height:350px;
@@ -170,10 +198,11 @@
         </div>
     </div>
     
-    <h1>ahysbhud</h1>
-
+    <div id="countryBookInfoTitle">
+        land
+    </div>
     <div id="countryBookInfoHolder">
-
+        Klikk på et land, og klikk "se bøker"!
     </div>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
@@ -189,6 +218,7 @@
         const worldSvg = document.getElementById("world-svg");
         const obj = document.getElementById('world-svg');
         const bookInfoHolder = document.getElementById("countryBookInfoHolder")
+        const countryBookInfoTitle = document.getElementById("countryBookInfoTitle")
 
         let allCountries = 
         [
@@ -725,8 +755,13 @@
 
         function showBookInfoForCurrentCountry() {
             console.log(currentCountryHover)
+            countryBookInfoTitle.style.display = "block"
+            countryBookInfoTitle.textContent = currentCountryHover
             bookInfoHolder.innerHTML = '';
             showDataForCountry(currentCountryHover)
+            if (Bokdata[currentCountryHover].books.length == 0) {
+                bookInfoHolder.innerHTML = 'Ingen bøker har blitt lest fra '+currentCountryHover+'. Du kan bli den første!';
+            }
         }
 
         function showDataForCountry(country) {
@@ -744,35 +779,43 @@
                 book.appendChild(title);
 
                 fitTextToContainerWrap(title,30,15)
-                
+
+                const imageHolder = document.createElement('div');
+                imageHolder.className = "imageHolder";
+                book.appendChild(imageHolder);
                 const img = document.createElement('img');
                 img.className = 'bookImg';
                 img.src = "https://hdkcdjdaexyxbwjwyacq.supabase.co/storage/v1/object/public/BokInfoJson/"+(Bokdata[country].books[i].image)+".jpg"
                 img.alt = "bokomslaget til boka "+ Bokdata[country].books[i].name
-                book.appendChild(img);
-                
+                imageHolder.appendChild(img);
+            
                 const info = document.createElement('div');
                 info.className = 'bookInfo';
                 info.textContent = Bokdata[country].books[i].info;
                 book.appendChild(info);
 
                 img.onload = function() {
+                    console.log("image loaded")
                     const imgWidth = img.offsetWidth
                     book.style.width = imgWidth+"px"
-                    info.style.width = (fallbackWidth-10)+"px"
+                    info.style.width = (imgWidth-10)+"px"
                     title.style.width = imgWidth+"px"
                     fitTextToContainerWrap(title,30,15)
                     console.log("Rendered width:", imgWidth); 
                 }
-
+                
                 img.onerror = function() {
+                    console.log("error loading image")
                     console.warn("Image failed to load. Using alternate state.");
                     const fallbackWidth = 223
                     book.style.width = fallbackWidth+"px"
                     info.style.width = (fallbackWidth-10)+"px"
                     title.style.width = fallbackWidth+"px"
-                    img.className = "bookImgNoImg"
-                    img.alt = " Ingen bokomslag funnet til boka "+Bokdata[country].books[i].name
+                    img.remove();
+                    const noImg = document.createElement('div');
+                    noImg.className = "bookImgNoImg"
+                    noImg.textContent = " Ingen bokomslag funnet til boka "+Bokdata[country].books[i].name
+                    imageHolder.appendChild(noImg);
                     fitTextToContainerWrap(title,30,15)
                 }
 
@@ -786,10 +829,6 @@
                 sjanger.textContent = textSjangUpper
                 book.appendChild(sjanger);
             }
-        }
-
-        function removeDataforCountry() {
-
         }
 
         let Bokdata = []
