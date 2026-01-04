@@ -7,16 +7,23 @@
     <title>Document</title>
     <style>
         body {
-            background-color: #80bbff;
+            background-color: #F7FAFC;
             font-family: Arial, Helvetica, sans-serif;
             padding: 0px;
             margin:0px;
             max-width: 100%;
             overflow-x:hidden;
         }
+        #mapWrapperCenterer{
+            width: 100vw;
+            justify-items: center;
+            padding-top: 1vw;
+        }
         .svg-wrapper {
             background: #F7FAFC;
-            width: 100vw;  /* full viewport width */
+            width: 98vw;  /* full viewport width */
+            border: 1.5px solid #b5e8b9;
+            border-radius: 20px;
             overflow-x: auto; /* horizontal scroll */
             overflow-y: auto;     /* optional vertical scroll */
             -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
@@ -61,6 +68,85 @@
             align-items: center;
             justify-content: space-between;
         }
+
+        #countryBookInfoHolder{
+            display: flex;
+            flex-flow: row nowrap;
+            overflow-x: auto; /* horizontal scroll */
+            -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+            touch-action: pan-x;                /* allow horizontal touch panning */
+        }
+
+        .sjangerShow{
+            border-radius: 20px;
+            padding:5px;
+            padding-left:10px;
+            padding-right:10px;
+            width: fit-content;
+            text-align: center;
+            color: white;
+        }
+        #faglitteratur{
+            background-color: #2F6DAE;
+        }
+        #sakprosa{
+            background-color: #2E8B6D;
+        }
+        #tegneserier{
+            background-color: #E07A2D;
+        }
+        #skjønnlitteratur{
+            background-color: #8A4FB3;
+        }
+        .bookCard{
+            height:110%;
+            width:223px;
+            padding:7px;
+            margin: 5px;
+            border: 1.5px solid #b5e8b9;
+            border-radius: 20px;
+            background-color: #e7ffe9;
+            display: flex;
+            justify-content: space-between;
+            flex-flow: column nowrap;
+            align-items: center;
+            text-align: center;
+        }
+        .bookInfo{
+            width:213px;
+            padding:5px;
+            max-height:95px;
+            height:95px;
+            font-size: 15px;
+            background-color: #ddeeff;
+            border-radius: 5px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #a4cbef;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+            touch-action: pan-y;                /* allow horizontal touch panning */
+        }
+        .bookTitle{
+            display: flex;
+            justify-content: center; /* horizontal centering */
+            align-items: center;     /* vertical centering */
+            text-align: center;
+            height:50px;
+            font-size: 30px;
+            max-width:220px;
+            white-space: nowrap;
+        }
+        .bookImg{
+            height:350px;
+        }
+        .bookImgNoImg{
+            min-height:350px;
+            min-width:223px;
+            max-height:350px;
+            max-width:223px;
+            background-color: gray;
+        }
     </style>
 </head>
 
@@ -74,42 +160,20 @@
                 0
             </div>
         </div>
-        <button id="moreInfoBttn" onclick="">
+        <button id="moreInfoBttn" onclick="showBookInfoForCurrentCountry()">
             se bøker
         </button>
     </div>
-    <div class="svg-wrapper" id="mapWrapper">
-        <object id="world-svg" data="world.svg" type="image/svg+xml"></object>
-    </div>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <h1>ahysbhud</h1>
-    <div id="countryBookInfoHolder">
-        <div class="bookBlock">
-            <div class="bookBlockTitle"></div>
-            <div class="bookBlockInfo">
-
-            </div>
+    <div id="mapWrapperCenterer">
+        <div class="svg-wrapper" id="mapWrapper">
+            <object id="world-svg" data="world.svg" type="image/svg+xml"></object>
         </div>
+    </div>
+    
+    <h1>ahysbhud</h1>
+
+    <div id="countryBookInfoHolder">
+
     </div>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
@@ -125,6 +189,7 @@
         const worldSvg = document.getElementById("world-svg");
         const obj = document.getElementById('world-svg');
         const bookInfoHolder = document.getElementById("countryBookInfoHolder")
+
         let allCountries = 
         [
             "Angola",
@@ -658,14 +723,74 @@
             fitTextToContainer(titleEl);
         }
 
-        function showDataForCountry(name) {
+        function showBookInfoForCurrentCountry() {
+            console.log(currentCountryHover)
+            bookInfoHolder.innerHTML = '';
+            showDataForCountry(currentCountryHover)
+        }
 
+        function showDataForCountry(country) {
+            console.log(Bokdata[country])
+            for (let i = 0; i < Bokdata[country].books.length; i++) {
+
+                const book = document.createElement('div'); // create div
+                book.className = 'bookCard';               // set class
+                book.id = country+Bokdata[country].books[i].name;
+                bookInfoHolder.appendChild(book);           // append to body
+                
+                const title = document.createElement('div');
+                title.className = 'bookTitle';
+                title.textContent = Bokdata[country].books[i].name;
+                book.appendChild(title);
+
+                fitTextToContainerWrap(title,30,15)
+                
+                const img = document.createElement('img');
+                img.className = 'bookImg';
+                img.src = "https://hdkcdjdaexyxbwjwyacq.supabase.co/storage/v1/object/public/BokInfoJson/"+(Bokdata[country].books[i].image)+".jpg"
+                img.alt = "bokomslaget til boka "+ Bokdata[country].books[i].name
+                book.appendChild(img);
+                
+                const info = document.createElement('div');
+                info.className = 'bookInfo';
+                info.textContent = Bokdata[country].books[i].info;
+                book.appendChild(info);
+
+                img.onload = function() {
+                    const imgWidth = img.offsetWidth
+                    book.style.width = imgWidth+"px"
+                    info.style.width = (fallbackWidth-10)+"px"
+                    title.style.width = imgWidth+"px"
+                    fitTextToContainerWrap(title,30,15)
+                    console.log("Rendered width:", imgWidth); 
+                }
+
+                img.onerror = function() {
+                    console.warn("Image failed to load. Using alternate state.");
+                    const fallbackWidth = 223
+                    book.style.width = fallbackWidth+"px"
+                    info.style.width = (fallbackWidth-10)+"px"
+                    title.style.width = fallbackWidth+"px"
+                    img.className = "bookImgNoImg"
+                    img.alt = " Ingen bokomslag funnet til boka "+Bokdata[country].books[i].name
+                    fitTextToContainerWrap(title,30,15)
+                }
+
+
+                const sjanger = document.createElement("div");
+                sjanger.className = 'sjangerShow'
+                sjanger.id = Bokdata[country].books[i].sjang;
+                console.log(sjanger.id)
+                let textSjang = Bokdata[country].books[i].sjang;
+                let textSjangUpper = textSjang.charAt(0).toUpperCase() + textSjang.slice(1);
+                sjanger.textContent = textSjangUpper
+                book.appendChild(sjanger);
+            }
         }
 
         function removeDataforCountry() {
 
         }
-
 
         let Bokdata = []
 
@@ -718,13 +843,43 @@
                 .padStart(6, '0');
         }
 
-        function fitTextToContainer(el, maxFont = 50, minFont = 2) {
+        function fitTextToContainer(el, maxFont = 50, minFont = 4) {
             let fontSize = maxFont;
             el.style.fontSize = fontSize + "px";
 
             while (el.scrollWidth > el.clientWidth && fontSize > minFont) {
                 fontSize--;
                 el.style.fontSize = fontSize + "px";
+            }
+        }
+
+        function fitTextToContainerWrap(el, maxFont = 50, minFont = 4) {
+            el.style.whiteSpace = "nowrap"; // start single line
+            el.style.wordBreak = "normal";
+            el.style.lineHeight = "1.1"; // optional, adjust spacing
+            el.style.fontSize = maxFont + "px";
+
+            let fontSize = maxFont;
+
+            // Step 1: Shrink font until it fits single line or reaches minFont
+            while (el.scrollWidth > el.clientWidth && fontSize > minFont) {
+                fontSize--;
+                el.style.fontSize = fontSize + "px";
+            }
+
+            // Step 2: If text still overflows, allow wrapping to 2 lines
+            if (el.scrollWidth > el.clientWidth) {
+                el.style.whiteSpace = "normal";       // allow wrapping
+                el.style.wordBreak = "break-word";    // break long words if needed
+
+                // Fit font size so that two lines fit the container height
+                const maxHeight = el.clientHeight;
+                fontSize = fontSize; // start from last font size
+
+                while (el.scrollHeight > maxHeight && fontSize > minFont) {
+                    fontSize--;
+                    el.style.fontSize = fontSize + "px";
+                }
             }
         }
 
