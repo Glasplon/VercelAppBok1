@@ -1,0 +1,206 @@
+body {
+    background-color: #F7FAFC;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0px;
+    margin:0px;
+    max-width: 100%;
+    overflow-x:hidden;
+}
+#mapWrapperCenterer{
+    width: 98vw;
+    justify-items: center;
+    padding-top: 1vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-bottom: 10px;
+}
+.svg-wrapper {
+    align-self: center;
+    background: #f3faff;
+    width: 98vw;  /* full viewport width */
+    border: 1.5px solid #91b3e3;
+    border-radius: 20px;
+    overflow-x: auto; /* horizontal scroll */
+    overflow-y: auto;     /* optional vertical scroll */
+    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+    touch-action: pan-x;                /* allow horizontal touch panning */
+}
+
+#world-svg {
+    display: inline-block; /* allow it to exceed container width */
+    width:100vw;
+    min-width: 1200px; /* wider than viewport to enable scrolling */
+    height: auto;
+}
+#infobox{
+    position: absolute;
+    left:100px;
+    top:100px;
+    width:300px;
+    display: none;
+    flex-flow:column nowrap;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 20px;
+    padding: 10px;
+    font-weight: 500;
+}
+#infoBoxTitle,#infoBoxValue{
+    color:white;
+    font-size: 45px;
+    cursor:default;
+    align-items: center;
+    height:100%;
+    font-size: 50px;
+    white-space: nowrap;
+}
+#infoBoxTitle{
+    max-width: 300px;
+}
+
+#infoboxHeader{
+    display: flex;
+    flex-flow:column nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#moreInfoBttn{
+    margin-top: 10px;
+    padding: 12px 26px;
+
+    font-size: 20px;
+    font-weight: 600;
+    font-family: inherit;
+
+    color: #0b2a4a;
+    background-color: #68b1ff;
+
+    border: 2px solid #2F6DAE;
+    border-radius: 15px;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+#moreInfoBttn:hover{
+    background-color: #8fc5ff;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+    transform: translateY(-2px);
+}
+
+#moreInfoBttn:active{
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+#countryBookInfoHolder{
+    display: flex;
+    flex-flow: row nowrap;
+    overflow-x: auto; /* horizontal scroll */
+    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+    touch-action: pan-x;                /* allow horizontal touch panning */
+    padding: 10px;
+    background-color: #e9ecee;
+}
+#countryBookInfoTitle{
+    margin-top: 20px;
+    background-color: #e9ecee;
+    width:fit-content;
+    min-width: 100px;
+    font-size: 28px;
+    padding-right:30px;
+    padding-left:15px;
+    padding-top:7px;
+    border-top-right-radius: 30px;
+    display: none;
+}
+
+.sjangerShow{
+    font-size: 19px;
+    border-radius: 20px;
+    padding:7px;
+    padding-left:21px;
+    padding-right:21px;
+    width: fit-content;
+    text-align: center;
+    color: black;
+    border:#f3faff, solid, 2px
+}
+#faglitteratur{
+    border-color: #2F6DAE;
+    background-color: #68b1ff;
+}
+#sakprosa{
+    border-color: #38a180;
+    background-color: #68fbcc;
+}
+#tegneserie{
+    border-color: #E07A2D;
+    background-color: #ffa763;
+}
+#skjønnlitteratur{
+    border-color: #8A4FB3;
+    background-color: #d191ff;
+}
+.bookCard{
+    height:110%;
+    width:223px;
+    padding:7px;
+    margin: 5px;
+    border: 1.5px solid #b5e8b9;
+    border-radius: 20px;
+    background-color: #e7ffe9;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column nowrap;
+    align-items: center;
+    text-align: center;
+}
+.bookInfo{
+    margin-bottom: 8px;
+    width:213px;
+    padding:5px;
+    max-height:91px;
+    height:91px;
+    font-size: 15px;
+    background-color: #ddeeff;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #a4cbef;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+    touch-action: pan-y;                /* allow horizontal touch panning */
+}
+.bookTitle{
+    display: flex;
+    justify-content: center; /* horizontal centering */
+    align-items: center;     /* vertical centering */
+    text-align: center;
+    height:50px;
+    font-size: 30px;
+    max-width:220px;
+    white-space: nowrap;
+    margin-bottom: 2px;
+}
+.imageHolder{
+    height:350px;
+    margin-bottom: 6px;
+}
+.bookImg,.bookImgNoImg{
+    height:350px;
+}
+.bookImgNoImg{
+    width:223px;
+    min-height:350px;
+    min-width:223px;
+    max-height:350px;
+    max-width:223px;
+    background-color: gray;
+}
