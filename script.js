@@ -5,6 +5,8 @@ let svgDoc = false
         const obj = document.getElementById('world-svg');
         const bookInfoHolder = document.getElementById("countryBookInfoHolder")
         const countryBookInfoTitle = document.getElementById("countryBookInfoTitle")
+        const bokLandListeHolder = document.getElementById("bokLandListeHolder")
+        const reverserBTN = document.getElementById("reverser")
 
         let allCountries = 
         [
@@ -425,7 +427,7 @@ let svgDoc = false
 "Uganda":"Uganda",
 "Ukraine":"Ukraina",
 "Uruguay":"Uruguay",
-"United States":"De forente stater",
+"United States":"USA",
 "Uzbekistan":"Usbekistan",
 "Vatican City":"Vatikanstaten",
 "Saint Vincent and the Grenadines":"Saint Vincent og Grenadinene",
@@ -546,7 +548,7 @@ let svgDoc = false
             bookInfoHolder.innerHTML = '';
             showDataForCountry(currentCountryHover)
             if (Bokdata[currentCountryHover].books.length == 0) {
-                bookInfoHolder.innerHTML = 'Ingen bøker har blitt lest fra '+CountryLUT[currentCountryHover];+'. Du kan bli den første!';
+                bookInfoHolder.innerHTML = 'Ingen bøker har blitt lest fra '+CountryLUT[currentCountryHover] +'. Du kan bli den første!';
             }
             const offset = 80; // height of fixed header
             const y = countryBookInfoTitle.getBoundingClientRect().top + window.pageYOffset - offset;
@@ -555,6 +557,7 @@ let svgDoc = false
                 top: y,
                 behavior: "smooth"
             });
+            hideBox()
         }
 
         function showDataForCountry(country) {
@@ -617,12 +620,74 @@ let svgDoc = false
                 const sjanger = document.createElement("div");
                 sjanger.className = 'sjangerShow'
                 sjanger.id = Bokdata[country].books[i].sjang;
-                console.log(sjanger.id)
+                //console.log(sjanger.id)
                 let textSjang = Bokdata[country].books[i].sjang;
                 let textSjangUpper = textSjang.charAt(0).toUpperCase() + textSjang.slice(1);
                 sjanger.textContent = textSjangUpper
                 book.appendChild(sjanger);
             }
+        }
+        
+        function generateList() {
+            const data = Bokdata
+            let countryArrayBybook = Object.keys(data).sort((a, b) => data[b].count - data[a].count);
+            console.log(countryArrayBybook); // ["name2", "name1", "name3"]
+            countryArrayBybook.forEach(e => {
+                let block = document.createElement("div");
+                block.className = 'landElement'
+                bokLandListeHolder.appendChild(block)
+                
+                let info = document.createElement("div");
+                info.className = 'bokLandListeInfo'
+                info.textContent = CountryLUT[e]
+                block.appendChild(info)
+                
+                let val = document.createElement("div");
+                val.textContent = Bokdata[e].count
+                val.className = "bokLandListeVAL"
+                block.appendChild(val)
+                
+                let button = document.createElement("button");
+                
+                button.className = Bokdata[e].count == 0 ? 'moreInfoBttn3' : 'moreInfoBttn2';
+                button.textContent = "se bøker"
+                button.addEventListener("click", () => {
+                    currentCountryHover = e
+                    showBookInfoForCurrentCountry()
+                    console.log(e, " - clicked")
+                });
+                
+                block.appendChild(button)
+                fitTextToContainerWrap(info,25,15)
+
+            });
+            /*
+
+
+            <div class="landElement">
+                <div class="bokLandListeInfo">
+                    Landnavn 0 
+                </div>
+                <button class="moreInfoBttn2" onclick="showBookInfoForCurrentCountry()">
+                    se bøker
+                </button>
+            </div>
+            */
+        }
+
+        let listDirrectionCurrentUP = true
+
+        function reverseLandListeHolder() {
+            if (listDirrectionCurrentUP) {
+                reverserBTN.textContent = "Færrest bøker lest"
+                bokLandListeHolder.style.flexDirection = "column-reverse";
+            } else {
+                reverserBTN.textContent = "Flest bøker lest"
+                bokLandListeHolder.style.flexDirection = "column";
+                console.log(bokLandListeHolder.style.flexDirection)
+            }
+            listDirrectionCurrentUP = !listDirrectionCurrentUP
+            console.log(listDirrectionCurrentUP)
         }
 
         let Bokdata = []
@@ -659,8 +724,10 @@ let svgDoc = false
                 const color = hslToCss(h, s, l);
                 colorCountry(country, color);
             }
+            generateList();
             //document.getElementById("output").textContent = JSON.stringify(data, null, 2);
         }
+
 
         function lerp(a, b, t) {
             return a + (b - a) * t;
@@ -679,8 +746,9 @@ let svgDoc = false
         function fitTextToContainer(el, maxFont = 50, minFont = 4) {
             let fontSize = maxFont;
             el.style.fontSize = fontSize + "px";
-
+            
             while (el.scrollWidth > el.clientWidth && fontSize > minFont) {
+                //console.log(el.textContent)
                 fontSize--;
                 el.style.fontSize = fontSize + "px";
             }

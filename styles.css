@@ -87,16 +87,64 @@ body {
         transform 0.15s ease,
         box-shadow 0.15s ease;
 }
+.moreInfoBttn2{
+    padding: 6px 13px;
 
-#moreInfoBttn:hover{
+    font-size: 18px;
+    font-weight: 600;
+    font-family: inherit;
+
+    color: #0b2a4a;
+    background-color: #68b1ff;
+
+    border: 2px solid #2F6DAE;
+    border-radius: 15px;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+.moreInfoBttn3{
+    padding: 6px 13px;
+    opacity: 90%;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: inherit;
+
+    color: #39434e;
+    background-color: #c9cfd6;
+
+    border: 2px solid #707479;
+    border-radius: 15px;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+#moreInfoBttn:hover,.moreInfoBttn2:hover{
     background-color: #8fc5ff;
     box-shadow: 0 6px 14px rgba(0,0,0,0.18);
     transform: translateY(-2px);
 }
 
-#moreInfoBttn:active{
+#moreInfoBttn:active,.moreInfoBttn2:active,.moreInfoBttn3:active{
     transform: translateY(0);
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+#moreInfoBttn:hover,.moreInfoBttn3:hover{
+    background-color: #d7d7d7;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+    transform: translateY(-2px);
 }
 
 #countryBookInfoHolder{
@@ -203,4 +251,94 @@ body {
     max-height:350px;
     max-width:223px;
     background-color: gray;
+}
+
+#bokLandListeHolderBlock{
+    padding:1%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: baseline;
+    align-items: center;
+    width:100%;
+    background: #a1d8ff;
+    border:#5d9bf1 solid 1.5px ;
+    border-radius: 20px;
+}
+
+#bokLandListeHolder{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: start;
+    width:100%;
+    background: #a1d8ff;
+}
+
+#bokLandListeHolderCenterer{
+    padding:1%;
+    width:98vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.landElement{
+    border: rgb(158, 206, 255) solid 2px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    margin-top: 7px;
+    padding: 0px 10px 0px 10px;
+    height:50px;
+    width: calc(100% - 20px);
+    display: flex;
+    flex-flow:row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+.landElement:hover{
+        box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+    transform: translateY(-2px);
+}
+
+.bokLandListeInfo{
+    width: 45vw;
+    white-space: nowrap;
+}
+
+.bokLandListeVAL{
+    font-size: 25px;
+}
+
+#landListeHolderTopBar{
+    width:100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 22px;
+    padding-left: 1vw;
+}
+
+#landListeHolderBarSpacer{
+    font-size: inherit;
+    width:fit-content;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 150px;
+    padding-right: 1vw;
+}
+
+#reverser{
+    font-weight: 500;
+    font-size: inherit;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-left: 10px
 }
