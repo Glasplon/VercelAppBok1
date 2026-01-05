@@ -4,449 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            background-color: #80bbff;
-            font-family: Arial, Helvetica, sans-serif;
-            padding: 0px;
-            margin:0px;
-        }
-        .svg-wrapper {
-            width: 100vw;
-            min-width:800px;
-            height:80vh;
-            overflow: auto;
-        }
-
-        #world-svg {
-            width:100%;
-        }
-        #infobox{
-            position: absolute;
-            left:100px;
-            top:100px;
-            width:200px;
-            height:200px;
-            display: none;
-            backdrop-filter: blur(30px);
-            background-color: rgba(0,0,0,0.2);
-            border-radius: 20px;
-            padding: 10px;
-        }
-        #infoBoxTitle,#infoBoxValue{
-            color:white;
-            font-size: 30px;
-            cursor:default;
-        }
-    </style>
+    <title>Å lese for å forstå</title>
+    <link rel="icon" type="image/x-icon" href="/images/logo_hvit_til-a-ha-oppa-bilder-eller-farge.png">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div id="infobox">
-        <div id="infoBoxTitle">
-            TMP
+        <div id="infoboxHeader">
+            <div id="infoBoxTitle">
+                TMP
+            </div>
+            <div id="infoBoxValue">
+                0
+            </div>
         </div>
-        <div id="infoBoxValue">
-            0
-        </div>
-        <button id="moreInfoBttn" onclick="">
+        <button id="moreInfoBttn" onclick="showBookInfoForCurrentCountry()">
             se bøker
         </button>
     </div>
-    <div class="svg-wrapper" id="mapWrapper">
-        <object id="world-svg" data="world.svg" type="image/svg+xml"></object>
+    <div id="mapWrapperCenterer">
+        <div class="svg-wrapper" id="mapWrapper">
+            <object id="world-svg" data="world.svg" type="image/svg+xml"></object>
+        </div>
     </div>
-    <input
-        type="range"
-        id="zoomSlider"
-        name="zoomSlider"
-        min="100"
-        max="500"
-        value="100"
-        step="10" />
-    <label for="zoomSlider">zoom</label>
-    <div id="zoomValue">100%</div>
+    
+    <div id="countryBookInfoTitle">
+        land
+    </div>
     <div id="countryBookInfoHolder">
-        <div class="bookBlock">
-            <div class="bookBlockTitle"></div>
-            <div class="bookBlockInfo">
+        Klikk på et land, og klikk "se bøker"!
+    </div>
+    <div id="bokLandListeHolderCenterer">
+        <div id="bokLandListeHolderBlock">
+            <div id="landListeHolderTopBar">
+                Land
+                <div id="landListeHolderBarSpacer">
+                    Sortert etter: 
+                    <button id="reverser" onclick="reverseLandListeHolder()" class="moreInfoBttn2">
+                        Flest bøker lest
+                    </button>
+                </div>
+            </div>
+            <div id="bokLandListeHolder">
 
             </div>
         </div>
     </div>
-
     <script>
-        let svgDoc = false
-        const Infobox = document.getElementById("infobox");
-        const mapWrapper = document.getElementById('mapWrapper');
-        const zoomSlider = document.getElementById("zoomSlider");
-        const zoomValue = document.getElementById("zoomValue");
-        const worldSvg = document.getElementById("world-svg");
-        const obj = document.getElementById('world-svg');
-        const bookInfoHolder = document.getElementById("countryBookInfoHolder")
-        let allCountries = 
-        [
-            "Angola",
-            "Antigua and Barbuda",
-            "Afghanistan",
-            "Albania",
-            "United Arab Emirates",
-            "Argentina",
-            "Armenia",
-            "Australia",
-            "Austria",
-            "Azerbaijan",
-            "Burundi",
-            "Belgium",
-            "Benin",
-            "Burkina Faso",
-            "Bangladesh",
-            "Bulgaria",
-            "Bahrain",
-            "Bahamas",
-            "Bosnia and Herzegovina",
-            "Belarus",
-            "Belize",
-            "Bolivia",
-            "Brazil",
-            "Barbados",
-            "Brunei",
-            "Bhutan",
-            "Botswana",
-            "Central African Republic",
-            "Canada",
-            "Switzerland",
-            "Chile",
-            "China",
-            "Ivory Coast",
-            "Cameroon",
-            "Democratic Republic of the Congo",
-            "Republic of Congo",
-            "Colombia",
-            "Comoros",
-            "Cape Verde",
-            "Costa Rica",
-            "Cuba",
-            "Cyprus",
-            "Czech Republic",
-            "Germany",
-            "Djibouti",
-            "Dominica",
-            "Denmark",
-            "Greenland",
-            "Dominican Republic",
-            "Algeria",
-            "Ecuador",
-            "Egypt",
-            "Eritrea",
-            "Spain",
-            "Canary Islands (Spain)",
-            "Estonia",
-            "Ethiopia",
-            "Faeroe Islands",
-            "Falkland Islands",
-            "Finland",
-            "Fiji",
-            "France",
-            "French Polynesia",
-            "Saint-Barthélemy",
-            "Saint-Martin",
-            "French Guiana",
-            "Federated States of Micronesia",
-            "Gabon",
-            "United Kingdom",
-            "Cayman Islands",
-            "Turks and Caicos Islands",
-            "Georgia",
-            "Ghana",
-            "The Gambia",
-            "Guinea",
-            "Guinea-Bissau",
-            "Equatorial Guinea",
-            "Greece",
-            "Grenada",
-            "Guadeloupe",
-            "Guatemala",
-            "Guam",
-            "Guyana",
-            "Honduras",
-            "Croatia",
-            "Haiti",
-            "Hungary",
-            "Indonesia",
-            "India",
-            "Ireland",
-            "Iran",
-            "Iraq",
-            "Iceland",
-            "Israel",
-            "Italy",
-            "Jamaica",
-            "Jordan",
-            "Japan",
-            "Kazakhstan",
-            "Kenya",
-            "Kosovo",
-            "Kyrgyzstan",
-            "Cambodia",
-            "Kiribati",
-            "Saint Kitts and Nevis",
-            "South Korea",
-            "Kuwait",
-            "Laos",
-            "Lebanon",
-            "Liberia",
-            "Libya",
-            "Saint Lucia",
-            "Liechtenstein",
-            "Sri Lanka",
-            "Lesotho",
-            "Lithuania",
-            "Luxembourg",
-            "Latvia",
-            "Morocco",
-            "Monaco",
-            "Moldova",
-            "Madagascar",
-            "Maldives",
-            "Mexico",
-            "Marshall Islands",
-            "Martinique",
-            "Macedonia",
-            "Mali",
-            "Malta",
-            "Myanmar",
-            "Montenegro",
-            "Mongolia",
-            "Mozambique",
-            "Mauritania",
-            "Mauritius",
-            "Malawi",
-            "Malaysia",
-            "Mayotte",
-            "Namibia",
-            "Niger",
-            "Nigeria",
-            "Nicaragua",
-            "Netherlands",
-            "North Korea",
-            "Northern Mariana Islands",
-            "Norway",
-            "Nepal",
-            "Nauru",
-            "New Zealand",
-            "Oman",
-            "Pakistan",
-            "Panama",
-            "Peru",
-            "Philippines",
-            "Palau",
-            "Palestine",
-            "Papua New Guinea",
-            "Poland",
-            "Portugal",
-            "Puerto Rico",
-            "Paraguay",
-            "Qatar",
-            "Romania",
-            "Russia",
-            "Rwanda",
-            "Saudi Arabia",
-            "Sudan",
-            "Senegal",
-            "Singapore",
-            "Solomon Islands",
-            "Sierra Leone",
-            "El Salvador",
-            "San Marino",
-            "Somalia",
-            "Serbia",
-            "South Sudan",
-            "São Tomé and Principe",
-            "Suriname",
-            "Slovakia",
-            "Slovenia",
-            "Sweden",
-            "Swaziland",
-            "Seychelles",
-            "Syria",
-            "Chad",
-            "Togo",
-            "Thailand",
-            "Tajikistan",
-            "Taiwan",
-            "Turkmenistan",
-            "Timor-Leste",
-            "Tonga",
-            "Trinidad and Tobago",
-            "Tunisia",
-            "Turkey",
-            "Tuvalu",
-            "Tanzania",
-            "Uganda",
-            "Ukraine",
-            "Uruguay",
-            "United States",
-            "Uzbekistan",
-            "Vatican City",
-            "Saint Vincent and the Grenadines",
-            "Venezuela",
-            "Vietnam",
-            "Vanuatu",
-            "Western Sahara",
-            "Samoa",
-            "Yemen",
-            "South Africa",
-            "Zambia",
-            "Zimbabwe"
-        ]
-        
-        let currentCountryHover = 
-
-        zoomValue.textContent = zoomSlider.value + "%";
-
-        function updateZoom() {
-            const zoom = zoomSlider.value;
-
-            // update visible number
-            zoomValue.textContent = zoom + "%";
-
-            // update SVG width
-            worldSvg.style.width = zoom + "%";
-        }
-
-        updateZoom();
-
-
-        zoomSlider.addEventListener("input", updateZoom);
-
-        obj.addEventListener('load', () => {
-
-            console.log("LOADED")
-            svgDoc = obj.contentDocument;
-
-            const allAreas = svgDoc.querySelectorAll('path, polygon, g, rect, circle');
-            allAreas.forEach(el => {
-                el.addEventListener('click', e => {
-                    // Try to detect a reasonable name for this shape
-                    //console.log(el)
-                    const name =
-                        el.getAttribute('data-name') ||
-                        el.getAttribute('name') ||
-                        el.getAttribute('class') ||
-                        'Unknown region';
-                    console.log(`Hovering over: ${name}`);
-                    //colorCountry(name, "#FF0000")
-
-                    
-
-                    Infobox.style.left = event.pageX-20-mapWrapper.scrollLeft + "px";
-                    Infobox.style.top = event.pageY-20-mapWrapper.scrollTop + "px";
-                    //console.log(event.pageY-20-mapWrapper.scrollTop + "px")
-                    //const x = mapWrapper.scrollLeft;
-                    //const y = mapWrapper.scrollTop;
-
-                    Infobox.style.display = "block";
-
-                    updateInfobox(name)
-
-                    Infobox.addEventListener("mouseleave", hideBox, { once: true });
-
-                });
-            });
-
-            allCountries.forEach((e, i) => {
-                //colorCountry(e, randomHexColor());
-                //colorCountry(e, "rgb(" + i + "," + i + "," + i + ")");
-                //console.log(e)
-                //colorCountry(e,"#407090")
-            });
-            loadData();
+        window.addEventListener('DOMContentLoaded', () => {
+            const wrapper = document.querySelector('.svg-wrapper');
+            // Set scrollLeft to half of the difference between scrollWidth and clientWidth
+            wrapper.scrollLeft = (wrapper.scrollWidth - wrapper.clientWidth) / 2;
         });
-
-        function hideBox() {
-            currentCountryHover = "none"
-            Infobox.style.display = "none";
-        }
-
-        function updateInfobox(name) {
-            currentCountryHover = name
-            console.log(Bokdata[name])
-            document.getElementById("infoBoxTitle").innerHTML = name
-            document.getElementById("infoBoxValue").innerHTML = Bokdata[name].count
-        }
-
-        function showDataForCountry(name) {
-
-        }
-
-        function removeDataforCountry() {
-
-        }
-
-
-        let Bokdata = []
-
-        async function loadData() {
-            const url = "https://hdkcdjdaexyxbwjwyacq.supabase.co/storage/v1/object/public/BokInfoJson/bokInfo.json"+"?"+Date.now(); 
-            const res = await fetch(url);
-            const data = await res.json();
-            Bokdata = data
-            console.log(Bokdata)
-            let mostbooks = 2
-            for (const country in Bokdata) {
-                if (Bokdata.hasOwnProperty(country)) {
-                    if (mostbooks < Bokdata[country].count) {
-                        mostbooks = Bokdata[country].count
-                    }
-                }
-            }
-            let multiplier = 255/mostbooks
-            let multiplier2 = 128/mostbooks
-            for (const country in Bokdata) {
-                if (Bokdata.hasOwnProperty(country)) {
-                    //console.log("Country:", country);
-                    //console.log("Count:", Bokdata[country].count);
-                    let blueColor = 255
-                    if (Bokdata[country].count <= 0) {
-                        blueColor = 190
-                    }
-                    colorCountry(country, "rgb(" + Bokdata[country].count*multiplier2 + "," + Bokdata[country].count*multiplier + "," + blueColor + ")");
-                }
-            }
-            //document.getElementById("output").textContent = JSON.stringify(data, null, 2);
-        }
-
-        function randomHexColor() {
-            return '#' + Math.floor(Math.random() * 0xffffff)
-                .toString(16)
-                .padStart(6, '0');
-        }
-
-        function colorCountry (countryName, color) {
-            if (!svgDoc) return;
-
-            // Case-insensitive selector for anything matching the name or class
-            const matches = svgDoc.querySelectorAll(`
-                [class="${countryName}"],
-                [class="${countryName.toLowerCase()}"],
-                [class="${countryName.toUpperCase()}"],
-                [name="${countryName}"],
-                [name="${countryName.toLowerCase()}"],
-                [name="${countryName.toUpperCase()}"],
-                [data-name="${countryName}"],
-                [data-name="${countryName.toLowerCase()}"],
-                [data-name="${countryName.toUpperCase()}"]
-            `);
-
-            matches.forEach(el => el.setAttribute('fill', color));
-
-            if (matches.length === 0) {
-                console.warn(`No paths found for ${countryName}`);
-            }
-        };
-
+    </script>
+    <script src="script.js">
+        
     </script>
 
 </body>
