@@ -548,7 +548,7 @@ let svgDoc = false
             bookInfoHolder.innerHTML = '';
             showDataForCountry(currentCountryHover)
             if (Bokdata[currentCountryHover].books.length == 0) {
-                bookInfoHolder.innerHTML = 'Ingen bøker fra '+CountryLUT[currentCountryHover] +'har blitt lest ennå. Du kan bli den første!';
+                bookInfoHolder.innerHTML = 'Ingen bøker fra '+CountryLUT[currentCountryHover] +' har blitt lest ennå. Du kan bli den første!';
             }
             const offset = 80; // height of fixed header
             const y = countryBookInfoTitle.getBoundingClientRect().top + window.pageYOffset - offset;
