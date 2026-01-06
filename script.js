@@ -7,6 +7,8 @@ let svgDoc = false
         const countryBookInfoTitle = document.getElementById("countryBookInfoTitle")
         const bokLandListeHolder = document.getElementById("bokLandListeHolder")
         const reverserBTN = document.getElementById("reverser")
+        const landListeHolderBarSpacer = document.getElementById("landListeHolderBarSpacer")
+        const landListeHolderTopBar = document.getElementById("landListeHolderTopBar")
 
         let allCountries = 
         [
@@ -540,6 +542,7 @@ let svgDoc = false
             }
 
             fitTextToContainer(titleEl);
+            fitTextToContainer(valueEl);
         }
 
         function showBookInfoForCurrentCountry() {
@@ -694,6 +697,9 @@ let svgDoc = false
                 </button>
             </div>
             */
+
+            fitTextToContainer(landListeHolderBarSpacer,22);
+            fitTextToContainer(landListeHolderTopBar,22);
         }
 
         let listDirrectionCurrentUP = true
