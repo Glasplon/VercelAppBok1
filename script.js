@@ -529,10 +529,11 @@ let svgDoc = false
             const valueEl = document.getElementById("infoBoxValue");
 
             titleEl.innerHTML = CountryLUT[name];
-            if (Bokdata[name].count == 1) {
-                valueEl.innerHTML = Bokdata[name].count + " bok lest";
+            const TMPrealCount = Bokdata[name].realCountryCountLOCAL;
+            if (TMPrealCount == 1) {
+                valueEl.innerHTML = TMPrealCount + " bok lest";
             } else {
-                valueEl.innerHTML = Bokdata[name].count + " bøker lest";
+                valueEl.innerHTML = TMPrealCount + " bøker lest";
             }
             if (valueEl.innerHTML == "1 bøker lest") {
                 valueEl.innerHTML = "1 bok lest"
@@ -593,7 +594,7 @@ let svgDoc = false
 
                 img.onload = function() {
                     console.log("image loaded")
-                    const imgWidth = img.offsetWidth
+                    const imgWidth = Math.max(img.offsetWidth,200)
                     book.style.width = imgWidth+"px"
                     info.style.width = (imgWidth-10)+"px"
                     title.style.width = imgWidth+"px"
@@ -604,7 +605,7 @@ let svgDoc = false
                 img.onerror = function() {
                     console.log("error loading image")
                     console.warn("Image failed to load. Using alternate state.");
-                    const fallbackWidth = 223
+                    const fallbackWidth = 200
                     book.style.width = fallbackWidth+"px"
                     info.style.width = (fallbackWidth-10)+"px"
                     title.style.width = fallbackWidth+"px"
@@ -616,6 +617,10 @@ let svgDoc = false
                     fitTextToContainerWrap(title,30,15)
                 }
 
+                const bottomContainer = document.createElement("div");
+                bottomContainer.className = 'bookBottomContainer'
+                book.appendChild(bottomContainer);
+
 
                 const sjanger = document.createElement("div");
                 sjanger.className = 'sjangerShow'
@@ -624,13 +629,29 @@ let svgDoc = false
                 let textSjang = Bokdata[country].books[i].sjang;
                 let textSjangUpper = textSjang.charAt(0).toUpperCase() + textSjang.slice(1);
                 sjanger.textContent = textSjangUpper
-                book.appendChild(sjanger);
+                bottomContainer.appendChild(sjanger);
+
+                const timesRead = document.createElement("div");
+                timesRead.className = 'sjangerShow'
+                timesRead.id = "countCOLOR"
+                timesRead.textContent = "Lest "+Bokdata[country].books[i].beenRead+" ganger";
+                bottomContainer.appendChild(timesRead);
+
             }
+        }
+
+        function getRealCount(bookList) {
+            //console.log(bookList)
+            let total = 0
+            for (let i = 0; i < bookList.length; i++) {
+                total += bookList[i].beenRead || 1;
+            }
+            return total
         }
         
         function generateList() {
             const data = Bokdata
-            let countryArrayBybook = Object.keys(data).sort((a, b) => data[b].count - data[a].count);
+            let countryArrayBybook = Object.keys(data).sort((a, b) => data[b].realCountryCountLOCAL - data[a].realCountryCountLOCAL);
             console.log(countryArrayBybook); // ["name2", "name1", "name3"]
             countryArrayBybook.forEach(e => {
                 let block = document.createElement("div");
@@ -643,7 +664,7 @@ let svgDoc = false
                 block.appendChild(info)
                 
                 let val = document.createElement("div");
-                val.textContent = Bokdata[e].count
+                val.textContent = Bokdata[e].realCountryCountLOCAL
                 val.className = "bokLandListeVAL"
                 block.appendChild(val)
                 
@@ -697,16 +718,19 @@ let svgDoc = false
             const res = await fetch(url);
             const data = await res.json();
             Bokdata = data
-            console.log(Bokdata)
+
+            console.log (Bokdata)
+            for (const country in Bokdata) {
+                Bokdata[country].realCountryCountLOCAL = getRealCount(Bokdata[country].books)
+            }
 
             let mostbooks = 2;
             for (const country in Bokdata) {
-                mostbooks = Math.max(mostbooks, Bokdata[country].count);
+                mostbooks = Math.max(mostbooks, Bokdata[country].realCountryCountLOCAL);
             }
 
-
             for (const country in Bokdata) {
-                const count = Bokdata[country].count;
+                const count = Bokdata[country].realCountryCountLOCAL
 
                 // 0 books: clear base color
                 if (count === 0) {

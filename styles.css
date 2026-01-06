@@ -141,7 +141,7 @@ body {
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
-#moreInfoBttn:hover,.moreInfoBttn3:hover{
+.moreInfoBttn3:hover{
     background-color: #d7d7d7;
     box-shadow: 0 6px 14px rgba(0,0,0,0.18);
     transform: translateY(-2px);
@@ -170,15 +170,16 @@ body {
 }
 
 .sjangerShow{
-    font-size: 19px;
-    border-radius: 20px;
-    padding:7px;
-    padding-left:21px;
-    padding-right:21px;
+    font-size: 18px;
+    border-radius: 18px;
+    padding:5px;
+    padding-left:15px;
+    padding-right:15px;
     width: fit-content;
     text-align: center;
     color: black;
-    border:#f3faff, solid, 2px
+    border:#f3faff, solid, 2px;
+    margin-bottom: 6px;
 }
 #faglitteratur{
     border-color: #2F6DAE;
@@ -196,9 +197,22 @@ body {
     border-color: #8A4FB3;
     background-color: #d191ff;
 }
+#countCOLOR{
+    border-color: #5f6f82;
+    background-color: #cfd9e6;
+    margin-bottom: 0px;
+}
+
+.bookBottomContainer{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
 .bookCard{
     height:110%;
     width:223px;
+    min-width:200px;
     padding:7px;
     margin: 5px;
     border: 1.5px solid #b5e8b9;
@@ -245,11 +259,11 @@ body {
     height:350px;
 }
 .bookImgNoImg{
-    width:223px;
+    width:200px;
     min-height:350px;
-    min-width:223px;
+    min-width:200px;
     max-height:350px;
-    max-width:223px;
+    max-width:200px;
     background-color: gray;
 }
 
