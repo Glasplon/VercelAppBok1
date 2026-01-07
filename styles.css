@@ -116,7 +116,7 @@ body {
         transform 0.15s ease,
         box-shadow 0.15s ease;
 }
-.moreInfoBttn2{
+.moreInfoBttn2,.moreInfoBttn3,.errorBttn{
     padding: 6px 13px;
 
     font-size: 18px;
@@ -137,26 +137,20 @@ body {
         transform 0.15s ease,
         box-shadow 0.15s ease;
 }
-.moreInfoBttn3{
-    padding: 6px 13px;
-    opacity: 90%;
-    font-size: 18px;
-    font-weight: 600;
-    font-family: inherit;
 
+.moreInfoBttn3{
+    opacity: 90%;
     color: #39434e;
     background-color: #c9cfd6;
 
     border: 1px solid #707479;
-    border-radius: 15px;
+}
 
-    cursor: pointer;
-    white-space: nowrap;
-
-    transition:
-        background-color 0.2s ease,
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
+.errorBttn{
+    color: #4e3939;
+    padding: 8px,15px;
+    background-color: #f9a1a1;
+    border: 1px solid #ea3030;
 }
 
 #moreInfoBttn:hover,.moreInfoBttn2:hover{
@@ -165,13 +159,18 @@ body {
     transform: translateY(-2px);
 }
 
-#moreInfoBttn:active,.moreInfoBttn2:active,.moreInfoBttn3:active{
+#moreInfoBttn:active,.moreInfoBttn2:active,.moreInfoBttn3:active,.errorBttn{
     transform: translateY(0);
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
 .moreInfoBttn3:hover{
     background-color: #d7d7d7;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+    transform: translateY(-2px);
+}
+.errorBttn:hover{
+    background-color: #ffb0b0;
     box-shadow: 0 6px 14px rgba(0,0,0,0.18);
     transform: translateY(-2px);
 }
@@ -196,6 +195,20 @@ body {
     padding-top:7px;
     border-top-right-radius: 30px;
     display: none;
+}
+
+#load-error{
+    width:90vw;
+    height:90vh;
+    text-align: center;
+    position: fixed;
+    top:0;
+    left:0;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255,255,255,0.5);
+    align-content: center;
+    font-size: 100%;
+    padding: 5%;
 }
 
 .sjangerShow{

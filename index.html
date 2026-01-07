@@ -54,6 +54,14 @@
             </div>
         </div>
     </div>
+    <div id="load-error" style="display:none">
+        <p>
+Vi har problemer med å nå serveren vår.<br>
+Vennligst sjekk internettilkoblingen din og prøv å last siden på nytt.
+Hvis problemet vedvarer, ta kontakt med support på Teams.<br> Takk.
+</p>
+        <button class="errorBttn" onclick="window.location.reload()">Retry</button>
+    </div>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const wrapper = document.querySelector('.svg-wrapper');

@@ -515,7 +515,7 @@ let svgDoc = false
                 //console.log(e)
                 //colorCountry(e,"#407090")
             });
-            loadData();
+            loadDataWithRetry();
         });
 
         function hideBox() {
@@ -663,7 +663,7 @@ let svgDoc = false
         function generateList() {
             const data = Bokdata
             let countryArrayBybook = Object.keys(data).sort((a, b) => data[b].realCountryCountLOCAL - data[a].realCountryCountLOCAL);
-            console.log(countryArrayBybook); // ["name2", "name1", "name3"]
+            //console.log(countryArrayBybook);
             countryArrayBybook.forEach(e => {
                 let block = document.createElement("div");
                 block.className = 'landElement'
@@ -727,13 +727,20 @@ let svgDoc = false
 
         let Bokdata = []
 
-        async function loadData() {
+    async function loadData() {
+        try {
+            console.log("fetching url")
             const url = "https://hdkcdjdaexyxbwjwyacq.supabase.co/storage/v1/object/public/BokInfoJson/bokInfo.json"+"?"+Date.now(); 
-            const res = await fetch(url);
+            const res = await fetchWithTimeout(url, 5000);
+
+            if (!res.ok) {
+                console("fetch error 1")
+                throw new Error(`HTTP error ${res.status}`);
+            }
             const data = await res.json();
             Bokdata = data
 
-            console.log (Bokdata)
+            console.log ("Bokdata")
             for (const country in Bokdata) {
                 Bokdata[country].realCountryCountLOCAL = getRealCount(Bokdata[country].books)
             }
@@ -763,8 +770,54 @@ let svgDoc = false
                 colorCountry(country, color);
             }
             generateList();
-            //document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+        } catch (err) {
+            console.error("loadData failed:", err);
+            throw err; // ← THIS is the key
         }
+            //document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+    }
+
+        async function loadDataWithRetry(retries = 2, delayMs = 1000) {
+            try {
+                await loadData();
+            } catch (err) {
+                //console.log("adajdiwau")
+                if (retries <= 0) {
+                    console.error("All retries failed");
+                    showLoadError();
+                    return;
+                }
+
+                console.warn(
+                    `loadData failed, retrying in ${delayMs}ms... (${retries} left)`
+                );
+
+                setTimeout(() => {
+                    loadDataWithRetry(retries - 1, delayMs);
+                }, delayMs);
+            }
+        }
+
+        function showLoadError() {
+            const el = document.getElementById("load-error");
+            el.style.display = "block";
+        }
+
+        async function fetchWithTimeout(url, timeout = 5000) {
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
+
+            try {
+                const res = await fetch(url, { signal: controller.signal });
+                clearTimeout(id);
+                return res;
+            } catch (err) {
+                console.log("nndaidnwn")
+                clearTimeout(id);
+                throw err;
+            }
+        }
+
 
 
         function lerp(a, b, t) {
