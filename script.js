@@ -540,9 +540,13 @@ let svgDoc = false
             if (valueEl.innerHTML == "1 bøker lest") {
                 valueEl.innerHTML = "1 bok lest"
             }
-
-            fitTextToContainer(titleEl);
-            fitTextToContainer(valueEl);
+            if (window.innerWidth>=768) {
+                fitTextToContainer(titleEl,35);
+                fitTextToContainer(valueEl,33);
+            } else {
+                fitTextToContainer(titleEl,35);
+                fitTextToContainer(valueEl,33);
+            }
         }
 
         function showBookInfoForCurrentCountry() {
@@ -597,10 +601,14 @@ let svgDoc = false
 
                 img.onload = function() {
                     console.log("image loaded")
+                    img.style.height=350+"px"
                     const imgWidth = Math.max(img.offsetWidth,200)
+                    console.log(imgWidth)
+                    console.log(book.style.width)
                     book.style.width = imgWidth+"px"
                     info.style.width = (imgWidth-10)+"px"
                     title.style.width = imgWidth+"px"
+                    book.style.minWidth = imgWidth+"px"
                     fitTextToContainerWrap(title,30,15)
                     console.log("Rendered width:", imgWidth); 
                 }

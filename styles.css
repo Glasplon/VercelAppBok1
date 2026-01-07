@@ -18,7 +18,7 @@ body {
     align-self: center;
     background: #f3faff;
     width: 98vw;  /* full viewport width */
-    border: 1.5px solid #91b3e3;
+    border: 1px solid #91b3e3;
     border-radius: 20px;
     overflow-x: auto; /* horizontal scroll */
     overflow-y: auto;     /* optional vertical scroll */
@@ -39,38 +39,52 @@ body {
     width:300px;
     display: none;
     flex-flow:column nowrap;
-    backdrop-filter: blur(20px);
-    background-color: rgba(0,0,0,0.2);
+    backdrop-filter: blur(12px);
+    background-color: rgba(255,255,255,0.3);
     border-radius: 20px;
     padding: 10px;
     font-weight: 500;
 }
 #infoboxCloseBTN{
-    border: #00000066 solid 2px;
-    background-color: #00000011;
+    border: #00000066 solid 1px;
+    background-color: #00000015;
     color: #00000088;
     border-radius: 50%;
     position: absolute;
     text-align: center;
-    font-size: 14px;
+    font-size: 9px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
-    height:20px;
-    width:20px;
+    height:19px;
+    width:19px;
     top: 6px;
     right:6px;
+    display: block;
+    font-weight: 500;
 }
+@media (min-width: 480px) {
+  #infoboxCloseBTN {
+    display: block;
+  }
+}
+
+@media (min-width: 900px) {
+  #infoboxCloseBTN {
+    display: none;
+  }
+}
+
 #infoBoxTitle,#infoBoxValue{
-    color:white;
-    font-size: 45px;
+    color:rgb(0, 27, 56);
+    font-size: 40px;
     cursor:default;
     align-items: center;
     height:100%;
     font-size: 50px;
     white-space: nowrap;
-    max-width: 300px;
+    max-width: 290px;
 }
 
 #infoboxHeader{
@@ -91,7 +105,7 @@ body {
     color: #0b2a4a;
     background-color: #68b1ff;
 
-    border: 2px solid #2F6DAE;
+    border: 1px solid #2F6DAE;
     border-radius: 15px;
 
     cursor: pointer;
@@ -112,7 +126,7 @@ body {
     color: #0b2a4a;
     background-color: #68b1ff;
 
-    border: 2px solid #2F6DAE;
+    border: 1px solid #2F6DAE;
     border-radius: 15px;
 
     cursor: pointer;
@@ -133,7 +147,7 @@ body {
     color: #39434e;
     background-color: #c9cfd6;
 
-    border: 2px solid #707479;
+    border: 1px solid #707479;
     border-radius: 15px;
 
     cursor: pointer;
@@ -176,9 +190,9 @@ body {
     background-color: #e9ecee;
     width:fit-content;
     min-width: 100px;
-    font-size: 28px;
+    font-size: 25px;
     padding-right:30px;
-    padding-left:15px;
+    padding-left:17px;
     padding-top:7px;
     border-top-right-radius: 30px;
     display: none;
@@ -193,7 +207,7 @@ body {
     width: fit-content;
     text-align: center;
     color: black;
-    border:#f3faff, solid, 2px;
+    border:#f3faff, solid, 1.2px;
     margin-bottom: 6px;
 }
 #faglitteratur{
