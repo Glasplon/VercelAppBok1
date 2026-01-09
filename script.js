@@ -7,6 +7,7 @@ let svgDoc = false
         const countryBookInfoTitle = document.getElementById("countryBookInfoTitle");
         const bokLandListeHolder = document.getElementById("bokLandListeHolder");
         const reverserBTN = document.getElementById("reverser");
+        //fitTextToContainer(reverserBTN)
         const landListeHolderBarSpacer = document.getElementById("landListeHolderBarSpacer");
         const landListeHolderTopBar = document.getElementById("landListeHolderTopBar");
 
@@ -719,8 +720,10 @@ let svgDoc = false
             if (listDirrectionCurrentUP) {
                 reverserBTN.textContent = "Færrest bøker lest"
                 bokLandListeHolder.style.flexDirection = "column-reverse";
+                //fitTextToContainer(reverserBTN)
             } else {
                 reverserBTN.textContent = "Flest bøker lest"
+                //fitTextToContainer(reverserBTN)
                 bokLandListeHolder.style.flexDirection = "column";
                 console.log(bokLandListeHolder.style.flexDirection)
             }

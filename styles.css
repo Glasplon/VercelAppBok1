@@ -17,7 +17,7 @@ body {
     width:100dvw;
     max-width: 100dvw;
     position: sticky;
-    z-index: 100;
+    z-index: 300;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -32,7 +32,7 @@ body {
     height:30px;
     width:100dvw;
     max-width: 100dvw;
-    z-index: 100;
+    z-index: 300;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -53,10 +53,10 @@ body {
     backdrop-filter: blur(5px);
     background-color: #ffffff55;
     width:100dvw;
-    height:calc(100dvh - 100px);
+    height:100dvh;
     position: fixed;
-    bottom:0;
-    left:0;
+    top:0px;
+    left:0px;
     z-index: 200;
 }
 #mapWrapperCenterer{
@@ -121,11 +121,17 @@ body {
   #infoboxCloseBTN {
     display: block;
   }
+    #bokLandListeHolderBlock{
+    border-radius: 20px;
+  }
 }
 
 @media (min-width: 900px) {
   #infoboxCloseBTN {
     display: none;
+  }
+    #bokLandListeHolderBlock{
+    border-radius: 20px;
   }
 }
 
@@ -372,7 +378,7 @@ body {
     width:calc(98dvw - 3px);
     background: #a1d8ff;
     border:#5d9bf1 solid 1.5px ;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 #bokLandListeHolder{
@@ -430,7 +436,7 @@ body {
     align-items: center;
     justify-content: space-between;
     font-size: 22px;
-    padding-left: 2vw;
+    padding-left: 1vw;
 }
 
 #landListeHolderBarSpacer{
@@ -451,5 +457,11 @@ body {
     font-size: inherit;
     padding-top: 3px;
     padding-bottom: 3px;
-    margin-left: 7px
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: center;
+    margin-left: 7px;
+    font-size: 20px;
+    width:180px;
+    white-space: nowrap;
 }
