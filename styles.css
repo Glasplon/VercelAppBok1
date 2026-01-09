@@ -369,7 +369,7 @@ body {
     flex-wrap: nowrap;
     justify-content: baseline;
     align-items: center;
-    width:100%;
+    width:calc(98dvw - 3px);
     background: #a1d8ff;
     border:#5d9bf1 solid 1.5px ;
     border-radius: 20px;
