@@ -452,7 +452,7 @@ let svgDoc = false
         // HSL ramp for 1+ books
         const COLOR_MIN = { h: 210, s: 70, l: 70 }; // very light blue
         const COLOR_MAX = { h: 210, s: 70, l: 30 }; // deep blue
-
+        console.log("start")
         obj.addEventListener('load', () => {
 
             console.log("LOADED")
