@@ -26,6 +26,16 @@
             X
         </button>
     </div>
+    <div class="headerGoAway">
+        <div id="headerTitle1">
+            Å lese for å forstå
+        </div>
+    </div>
+    <div class="headerOuter">
+        <div id="headerTitle2">
+            Loading...
+        </div>
+    </div>
     <div id="mapWrapperCenterer">
         <div class="svg-wrapper" id="mapWrapper">
             <object id="world-svg" data="world.svg" type="image/svg+xml"></object>
@@ -56,11 +66,14 @@
     </div>
     <div id="load-error" style="display:none">
         <p>
-Vi har problemer med å nå serveren vår.<br>
-Vennligst sjekk internettilkoblingen din og prøv å last siden på nytt.
-Hvis problemet vedvarer, ta kontakt med support på Teams.<br> Takk.
-</p>
+        Vi har problemer med å nå serveren vår.<br>
+        Vennligst sjekk internettilkoblingen din og prøv å last siden på nytt.
+        Hvis problemet vedvarer, ta kontakt med support på Teams.<br> Takk.
+        </p>
         <button class="errorBttn" onclick="window.location.reload()">Retry</button>
+    </div>
+    <div id="loadBlur">
+
     </div>
     <script>
         window.addEventListener('DOMContentLoaded', () => {

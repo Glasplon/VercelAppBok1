@@ -3,12 +3,15 @@ let svgDoc = false
         const mapWrapper = document.getElementById('mapWrapper');
         const worldSvg = document.getElementById("world-svg");
         const obj = document.getElementById('world-svg');
-        const bookInfoHolder = document.getElementById("countryBookInfoHolder")
-        const countryBookInfoTitle = document.getElementById("countryBookInfoTitle")
-        const bokLandListeHolder = document.getElementById("bokLandListeHolder")
-        const reverserBTN = document.getElementById("reverser")
-        const landListeHolderBarSpacer = document.getElementById("landListeHolderBarSpacer")
-        const landListeHolderTopBar = document.getElementById("landListeHolderTopBar")
+        const bookInfoHolder = document.getElementById("countryBookInfoHolder");
+        const countryBookInfoTitle = document.getElementById("countryBookInfoTitle");
+        const bokLandListeHolder = document.getElementById("bokLandListeHolder");
+        const reverserBTN = document.getElementById("reverser");
+        const landListeHolderBarSpacer = document.getElementById("landListeHolderBarSpacer");
+        const landListeHolderTopBar = document.getElementById("landListeHolderTopBar");
+
+        const headerTitle2 = document.getElementById("headerTitle2");
+        const loadBlur = document.getElementById("loadBlur");
 
         let allCountries = 
         [
@@ -480,18 +483,18 @@ let svgDoc = false
                         const infoboxHeight = Math.max(Infobox.offsetHeight,220);
                         console.log(infoboxHeight)
 
-                        let left = event.pageX - 20 - mapWrapper.scrollLeft;
-                        let top = event.pageY - 20 - mapWrapper.scrollTop;
+                        let left = event.pageX - 40 - mapWrapper.scrollLeft;
+                        let top = event.pageY + 40 - mapWrapper.scrollTop;
 
                         if (left + infoboxWidth > viewportWidth) {
                             left = viewportWidth - infoboxWidth;
                         }
-                        if (left < 0) left = 0;
+                        if (left < 10) left = 10;
 
                         if (top + infoboxHeight > viewportHeight) {
                             top = viewportHeight - infoboxHeight;
                         }
-                        if (top < 0) top = 0;
+                        if (top < 110) top = 110;
 
                         Infobox.style.left = left + "px";
                         Infobox.style.top = top + "px";
@@ -737,14 +740,27 @@ let svgDoc = false
                 console("fetch error 1")
                 throw new Error(`HTTP error ${res.status}`);
             }
+            loadBlur.style.display="none";
+
             const data = await res.json();
             Bokdata = data
+            
+            let totalBooks = 0
+            let totalCountries = 0
 
             console.log ("Bokdata")
             for (const country in Bokdata) {
-                Bokdata[country].realCountryCountLOCAL = getRealCount(Bokdata[country].books)
+                let TMPcount = getRealCount(Bokdata[country].books)
+                Bokdata[country].realCountryCountLOCAL = TMPcount
+                console.log(TMPcount)
+                if (TMPcount > 0) {
+                    totalCountries++
+                }
+                totalBooks += TMPcount
             }
-
+            headerTitle2.textContent = 0+" bøker fra "+0+" land"
+            requestAnimationFrame(() => bookCountUp(0,totalBooks,0,totalCountries,0))
+            
             let mostbooks = 2;
             for (const country in Bokdata) {
                 mostbooks = Math.max(mostbooks, Bokdata[country].realCountryCountLOCAL);
@@ -777,6 +793,25 @@ let svgDoc = false
             //document.getElementById("output").textContent = JSON.stringify(data, null, 2);
     }
 
+    function bookCountUp(cb,fb,cc,fc,t) {
+        if (t < 0) {
+            t = 0
+        }
+        t += 0.01
+        if (t>=1) {
+            t = 1
+        }
+        cb = Math.floor(easeOut(0,fb,t))
+        cc = Math.floor(easeOut(0,fc,t))
+        headerTitle2.textContent = cb+" bøker fra "+cc+" land"
+        fitTextToContainer(headerTitle2,35,12)
+        if (cb == fb && cc == fc) {
+            
+        } else {
+            requestAnimationFrame(() => bookCountUp(cb,fb,cc,fc,t))
+        }
+    }
+
         async function loadDataWithRetry(retries = 2, delayMs = 1000) {
             try {
                 await loadData();
@@ -801,6 +836,7 @@ let svgDoc = false
         function showLoadError() {
             const el = document.getElementById("load-error");
             el.style.display = "block";
+            loadBlur.style.display="none";
         }
 
         async function fetchWithTimeout(url, timeout = 5000) {
@@ -812,7 +848,7 @@ let svgDoc = false
                 clearTimeout(id);
                 return res;
             } catch (err) {
-                console.log("nndaidnwn")
+                console.log("ops! noe er galt!")
                 clearTimeout(id);
                 throw err;
             }
@@ -821,6 +857,11 @@ let svgDoc = false
 
 
         function lerp(a, b, t) {
+            return a + (b - a) * t;
+        }
+
+        function easeOut(a, b, t) {
+            t = 1 - (1 - t) * (1 - t); // ease-out curve
             return a + (b - a) * t;
         }
 
