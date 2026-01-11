@@ -126,12 +126,15 @@ body {
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 800px) {
   #infoboxCloseBTN {
     display: none;
   }
     #bokLandListeHolderBlock{
     border-radius: 20px;
+  }
+  #moreInfoBttn:hover,.moreInfoBttn2:hover,.moreInfoBttn3:hover{
+    transform: translateY(-2px);
   }
 }
 
@@ -215,7 +218,6 @@ body {
 #moreInfoBttn:hover,.moreInfoBttn2:hover{
     background-color: #8fc5ff;
     box-shadow: 0 6px 14px rgba(0,0,0,0.18);
-    transform: translateY(-2px);
 }
 
 #moreInfoBttn:active,.moreInfoBttn2:active,.moreInfoBttn3:active,.errorBttn{
@@ -226,7 +228,6 @@ body {
 .moreInfoBttn3:hover{
     background-color: #d7d7d7;
     box-shadow: 0 6px 14px rgba(0,0,0,0.18);
-    transform: translateY(-2px);
 }
 .errorBttn:hover{
     background-color: #ffb0b0;
@@ -462,6 +463,22 @@ body {
     text-align: center;
     margin-left: 7px;
     font-size: 20px;
-    width:180px;
+    width:170px;
     white-space: nowrap;
+}
+
+@media (max-width: 500px) {
+    #reverser{
+    font-weight: 500;
+    font-size: inherit;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-align: center;
+    margin-left: 7px;
+    font-size: 12px;
+    width:130px;
+    white-space: nowrap;
+}
 }
