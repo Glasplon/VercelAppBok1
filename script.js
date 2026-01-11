@@ -2,7 +2,6 @@ let svgDoc = false
         const Infobox = document.getElementById("infobox");
         const mapWrapper = document.getElementById('mapWrapper');
         const worldSvg = document.getElementById("world-svg");
-        const obj = document.getElementById('world-svg');
         const bookInfoHolder = document.getElementById("countryBookInfoHolder");
         const countryBookInfoTitle = document.getElementById("countryBookInfoTitle");
         const bokLandListeHolder = document.getElementById("bokLandListeHolder");
@@ -454,7 +453,12 @@ let svgDoc = false
         const COLOR_MIN = { h: 210, s: 70, l: 70 }; // very light blue
         const COLOR_MAX = { h: 210, s: 70, l: 30 }; // deep blue
         console.log("start")
-        obj.addEventListener('load', () => {
+
+        mapWrapper.innerHTML='<object id="world-svg" data="world.svg" type="image/svg+xml"></object>'
+
+        const obj = document.getElementById('world-svg');
+
+        window.addEventListener('load', () => {
 
             console.log("LOADED")
             svgDoc = obj.contentDocument;
