@@ -240,7 +240,7 @@ body {
     flex-flow: row nowrap;
     overflow-x: auto; /* horizontal scroll */
     -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
-    touch-action: pan-x;               /* allow horizontal touch panning */
+    /*touch-action: pan-x;                allow horizontal touch panning */
     overflow-y: hidden;
     padding: 20px;
     background-color: #f2f3f4;
