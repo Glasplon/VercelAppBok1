@@ -979,8 +979,8 @@ THE SOFTWARE.
     </circle>
     <circle cx="1798.2" cy="719.3" id="2">
     </circle>
-    <circle class="monaco" cx="1023" cy="222" r="1.4" stroke="black"/>
-    <circle class="san marino" cx="1050" cy="221" r="1.4" stroke="black"/>
+    <circle class="Monaco" cx="1023" cy="222" r="1.4" stroke="black"/>
+    <circle class="San Marino" cx="1050" cy="221" r="1.4" stroke="black"/>
     <circle class="Vatican City" cx="1049.5" cy="232.5" r="1.4" stroke="black"/>
 
     <circle class="Kiribati" cx="1910" cy="443" r="1.1" stroke="black"/>
