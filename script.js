@@ -599,7 +599,7 @@ let svgDoc = false
                 const img = document.createElement('img');
                 img.className = 'bookImg';
                 img.src = "https://hdkcdjdaexyxbwjwyacq.supabase.co/storage/v1/object/public/BokInfoJson/"+(Bokdata[country].books[i].image)+".jpg"
-                img.alt = "bokomslaget til boka "+ CountryLUT[Bokdata[country].books[i].name]
+                img.alt = "bokomslaget til boka "+ Bokdata[country].books[i].name
                 imageHolder.appendChild(img);
             
                 const info = document.createElement('div');
