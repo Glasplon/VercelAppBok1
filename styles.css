@@ -1,5 +1,94 @@
+:root {
+  /* Green set */
+  --green-background: #F7FCFA;
+  --green-backgroundDark: #055f32;
+  --green-midLight: #f3fffa;
+  --green-svgBorder: #7dd4a1;
+  --green-titleDark: #00381b;
+  --green-infoButtonColor: #074124;
+  --green-infoButtonBg: #57d795;
+  --green-infoButtonBorder: #219559;
+  --green-infoButtonHoverbg1: #78f3b4;
+  --green-bookScrolltrackbg: hsl(150, 8%, 95%);
+  --green-bookCardBorder: #b5d6e8;   /* was green, now blue */
+  --green-bookCardBg: #e7f3ff;       /* was green, now blue */
+  --green-bookInfoBg: #ddffee;
+  --green-bookInfoBorder: #a4efcb;
+  --green-bookListContBg: #afffde;
+  --green-bookListContBorder: #50e18c;
+  --green-landBorder: #9effce;
+
+  /* Blue set */
+  --blue-background: #F7FAFC;
+  --blue-backgroundDark: #0b4177;
+  --blue-midLight: #f3faff;
+  --blue-svgBorder: #91b3e3;
+  --blue-titleDark: #001b38;
+  --blue-infoButtonColor: #0b2a4a;
+  --blue-infoButtonBg: #68b1ff;
+  --blue-infoButtonBorder: #2F6DAE;
+  --blue-infoButtonHoverbg1: #8fc5ff;
+  --blue-bookScrolltrackbg: #f2f3f4;
+  --blue-bookCardBorder: #b5e8b9;
+  --blue-bookCardBg: #e7ffe9;
+  --blue-bookInfoBg: #ddeeff;
+  --blue-bookInfoBorder: #a4cbef;
+  --blue-bookListContBg: #a1d8ff;
+  --blue-bookListContBorder: #5d9bf1;
+  --blue-landBorder: #9eceff;
+
+}
+
+/* Theme: green */
+body.theme-green {
+    --background: var(--green-background);
+    --backgroundDark: var(--green-backgroundDark);
+    --midLight: var(--green-midLight);
+    --svgBorder: var(--green-svgBorder);
+    --titleDark: var(--green-titleDark);
+    --infoButtonColor: var(--green-infoButtonColor);
+    --infoButtonBg: var(--green-infoButtonBg);
+    --infoButtonBorder: var(--green-infoButtonBorder);
+    --infoButtonHoverbg1: var(--green-infoButtonHoverbg1);
+    --bookScrolltrackbg: var(--green-bookScrolltrackbg);
+    --bookCardBorder: var(--green-bookCardBorder);
+    --bookCardBg: var(--green-bookCardBg);
+    --bookInfoBg: var(--green-bookInfoBg);
+    --bookInfoBorder: var(--green-bookInfoBorder);
+    --bookListContBg: var(--green-bookListContBg);
+    --bookListContBorder: var(--green-bookListContBorder);
+    --landBorder: var(--green-landBorder);
+}
+
+/* Theme: blue */
+body.theme-blue {
+    --background: var(--blue-background);
+    --backgroundDark: var(--blue-backgroundDark);
+    --midLight: var(--blue-midLight);
+    --svgBorder: var(--blue-svgBorder);
+    --titleDark: var(--blue-titleDark);
+    --infoButtonColor: var(--blue-infoButtonColor);
+    --infoButtonBg: var(--blue-infoButtonBg);
+    --infoButtonBorder: var(--blue-infoButtonBorder);
+    --infoButtonHoverbg1: var(--blue-infoButtonHoverbg1);
+    --bookScrolltrackbg: var(--blue-bookScrolltrackbg);
+    --bookCardBorder: var(--blue-bookCardBorder);
+    --bookCardBg: var(--blue-bookCardBg);
+    --bookInfoBg: var(--blue-bookInfoBg);
+    --bookInfoBorder: var(--blue-bookInfoBorder);
+    --bookListContBg: var(--blue-bookListContBg);
+    --bookListContBorder: var(--blue-bookListContBorder);
+    --landBorder: var(--blue-landBorder);
+}
+
+
+
+
+
+
+
 body {
-    background-color: #F7FAFC;
+    background-color: var(--background);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     padding: 0px;
     margin:0px;
@@ -7,7 +96,7 @@ body {
     overflow-x:hidden;
 }
 .headerOuter,.headerGoAway{
-    background-color: #0b4177;
+    background-color: var(--backgroundDark);
     color: white;
     text-align: center;
     padding:12px;
@@ -28,15 +117,32 @@ body {
     position: relative;
     padding: 0px;
     padding-top:10px;
+    padding-left: 5px;
+    padding-right: 5px;
     margin-bottom: -2px;
-    height:30px;
-    width:100dvw;
+    height:35px;
+    width:auto;
     max-width: 100dvw;
     z-index: 300;
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
     align-items: center;
+}
+.headerSideSpacer{
+    width:80px;
+    /*background-color: #ea3030;*/
+}
+.anyLengthLine{
+    flex: 1;
+    max-width: 100%;
+    height: 2px;
+    justify-items: center;
+}
+.anyLengthLineInnerBlock{
+    width:50%;
+    height: 2px;
+    background-color: var(--titleDark);
 }
 #headerTitle1,#headerTitle2{
     color: white;
@@ -69,9 +175,9 @@ body {
 }
 .svg-wrapper {
     align-self: center;
-    background: #f3faff;
+    background: var(--blue-midLight);
     width: 98vw;  /* full viewport width */
-    border: 1px solid #91b3e3;
+    border: 1px solid var(--svgBorder);
     border-radius: 20px;
     overflow-x: auto; /* horizontal scroll */
     overflow-y: auto;     /* optional vertical scroll */
@@ -124,6 +230,15 @@ body {
     #bokLandListeHolderBlock{
     border-radius: 20px;
   }
+  .headerGoAway{
+        padding-left: 0px;
+        padding-right: 0px;
+  }
+  .anyLengthLineInnerBlock{
+        width:60%;
+        height: 2px;
+        background-color: var(--titleDark);
+    }
 }
 
 @media (min-width: 800px) {
@@ -136,10 +251,19 @@ body {
   #moreInfoBttn:hover,.moreInfoBttn2:hover,.moreInfoBttn3:hover{
     transform: translateY(-2px);
   }
+    .headerGoAway{
+        padding-left: 200px;
+        padding-right: 200px;
+    }
+    .anyLengthLineInnerBlock{
+        width:80%;
+        height: 2px;
+        background-color: var(--titleDark);
+    }
 }
 
 #infoBoxTitle,#infoBoxValue{
-    color:rgb(0, 27, 56);
+    color: var(--titleDark);
     font-size: 40px;
     cursor:default;
     align-items: center;
@@ -164,10 +288,10 @@ body {
     font-weight: 600;
     font-family: inherit;
 
-    color: #0b2a4a;
-    background-color: #68b1ff;
+    color: var(--infoButtonColor);
+    background-color: var(--infoButtonBg);
 
-    border: 1px solid #2F6DAE;
+    border: 1px solid var(--infoButtonBorder);
     border-radius: 15px;
 
     cursor: pointer;
@@ -178,17 +302,17 @@ body {
         transform 0.15s ease,
         box-shadow 0.15s ease;
 }
-.moreInfoBttn2,.moreInfoBttn3,.errorBttn{
+.moreInfoBttn2,.moreInfoBttn3,.errorBttn,#fjordaarsKnappen{
     padding: 6px 13px;
 
     font-size: 18px;
     font-weight: 600;
     font-family: inherit;
 
-    color: #0b2a4a;
-    background-color: #68b1ff;
+    color: var(--infoButtonColor);
+    background-color: var(--infoButtonBg);
 
-    border: 1px solid #2F6DAE;
+    border: 1px solid var(--infoButtonBorder);
     border-radius: 15px;
 
     cursor: pointer;
@@ -202,10 +326,25 @@ body {
 
 .moreInfoBttn3{
     opacity: 90%;
-    color: #39434e;
-    background-color: #c9cfd6;
+    color: #393939;
+    background-color: #c9c6c6;
 
-    border: 1px solid #707479;
+    border: 1px solid #747474;
+}
+
+#fjordaarsKnappen{
+    text-decoration: none;
+    width:80px;
+    height:30px;
+    font-size: 16px;
+    padding: 4px 8px;
+    color: var(--blue-infoButtonColor);
+    background-color: var(--blue-infoButtonBg);
+    border: 1px solid var(--blue-infoButtonBorder);
+}
+#fjordaarsKnappen:hover{
+    background-color: var(--blue-infoButtonHoverbg1);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.18);
 }
 
 .errorBttn{
@@ -216,7 +355,7 @@ body {
 }
 
 #moreInfoBttn:hover,.moreInfoBttn2:hover{
-    background-color: #8fc5ff;
+    background-color: var(--infoButtonHoverbg1);
     box-shadow: 0 6px 14px rgba(0,0,0,0.18);
 }
 
@@ -243,11 +382,11 @@ body {
     /*touch-action: pan-x;                allow horizontal touch panning */
     overflow-y: hidden;
     padding: 20px;
-    background-color: #f2f3f4;
+    background-color: var(--bookScrolltrackbg);
 }
 #countryBookInfoTitle{
     margin-top: 20px;
-    background-color: #f2f3f4;
+    background-color: var(--bookScrolltrackbg);
     width:fit-content;
     min-width: 100px;
     font-size: 25px;
@@ -281,7 +420,7 @@ body {
     width: fit-content;
     text-align: center;
     color: black;
-    border:#f3faff, solid, 1.2px;
+    border: var(--midLight) , solid, 1.2px;
     margin-bottom: 6px;
 }
 #faglitteratur{
@@ -318,9 +457,9 @@ body {
     min-width:200px;
     padding:7px;
     margin: 5px;
-    border: 1.5px solid #b5e8b9;
+    border: 1.5px solid var(--bookCardBorder);
     border-radius: 20px;
-    background-color: #e7ffe9;
+    background-color: var(--bookCardBg);
     display: flex;
     justify-content: space-between;
     flex-flow: column nowrap;
@@ -334,11 +473,11 @@ body {
     max-height:91px;
     height:91px;
     font-size: 15px;
-    background-color: #ddeeff;
+    background-color: var(--bookInfoBg);
     border-radius: 5px;
     border-width: 1px;
     border-style: solid;
-    border-color: #a4cbef;
+    border-color: var(--bookInfoBorder);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
     touch-action: pan-y;                /* allow horizontal touch panning */
@@ -378,8 +517,8 @@ body {
     justify-content: baseline;
     align-items: center;
     width:calc(98dvw - 3px);
-    background: #a1d8ff;
-    border:#5d9bf1 solid 1.5px ;
+    background: var(--bookListContBg);
+    border:var(--bookListContBorder) solid 1.5px ;
     border-radius: 10px;
 }
 
@@ -390,7 +529,7 @@ body {
     justify-content: space-evenly;
     align-items: start;
     width:100%;
-    background: #a1d8ff;
+    background: var(--bookListContBg);
 }
 
 #bokLandListeHolderCenterer{
@@ -402,7 +541,7 @@ body {
 }
 
 .landElement{
-    border: rgb(158, 206, 255) solid 2px;
+    border: var(--landBorder) solid 2px;
     background-color: #ffffff;
     border-radius: 15px;
     margin-top: 7px;
